@@ -3,6 +3,7 @@ This repository contains MATLAB simulations and performance analysis of digital 
 
 
 Modulation Schemes:-
+
 ->ASK (Amplitude Shift Keying)  
   Information is encoded by varying the amplitude of the carrier wave. Simple but highly sensitive to noise and fading.
 
@@ -17,6 +18,7 @@ Modulation Schemes:-
   Combines amplitude and phase variations. 16 distinct constellation points → 4 bits per symbol. Higher data rate but more sensitive to noise and fading
  
 OFDM (Orthogonal Frequency Division Multiplexing)
+
 -Splits the channel into many narrowband subcarriers, each modulated separately (often with QAM or PSK).
 
 -Subcarriers are orthogonal, preventing interference.
@@ -24,6 +26,7 @@ OFDM (Orthogonal Frequency Division Multiplexing)
 -Excellent for combating multipath fading and used in modern systems like Wi-Fi, LTE, and 5G
 
 Channel Models
+
 ->AWGN (Additive White Gaussian Noise Channel):  
   Simplest model. Assumes only random Gaussian noise is added to the signal. No fading, just noise.
 
@@ -36,6 +39,7 @@ Channel Models
 
 
  Individual Graph Analyses
+ 
 1. BER vs. SNR for BPSK, QPSK, 16QAM under AWGN, Rayleigh, Rician
 AWGN channel:
 All modulation schemes show exponential BER reduction with increasing SNR.
@@ -52,25 +56,29 @@ Presence of a line-of-sight component reduces fading severity.
 BPSK/QPSK remain more robust than 16QAM.
 
 2. OFDM BER under Rayleigh Fading
+   
 BER decreases with SNR, but the slope is shallow compared to AWGN.
 Multipath fading causes deep fades across subcarriers, leading to error bursts.
 OFDM mitigates ISI but remains vulnerable to Rayleigh fading without diversity or coding.
 It moderate SNR (~10 dB), BER is still relatively high compared to AWGN performance.
 
-3. OFDM BER under Rician Fading
+4. OFDM BER under Rician Fading
+   
 BER performance improves compared to Rayleigh due to the line-of-sight path.
 At higher SNR (>12 dB), BER approaches AWGN-like behavior.
 OFDM benefits from frequency diversity, but fading still introduces error floors at low SNR.
 The curve shows a steeper decline than Rayleigh, confirming robustness in Rician channels.
 
-4. OFDM BER under AWGN
+6. OFDM BER under AWGN
+   
 BER decreases sharply with SNR, showing ideal performance.
 At ~10 dB SNR, BER is already below 
 10^-3
 This represents the baseline performance of OFDM without fading impairments.
 Confirms OFDM’s efficiency in purely noisy channels.
 
-5. BER vs. SNR for Binary ASK under AWGN, Rayleigh, Rician
+8. BER vs. SNR for Binary ASK under AWGN, Rayleigh, Rician
+
 AWGN channel:
 Best performance, BER drops rapidly with SNR.
 
@@ -83,6 +91,7 @@ Intermediate performance, better than Rayleigh but worse than AWGN.
 Line-of-sight reduces fading severity, but ASK still suffers compared to phase-based schemes (BPSK/QPSK).
 
 Key Observations
+
 AWGN channels always yield the best BER performance across all schemes.
 Rician fading provides a middle ground, showing the importance of LOS paths.
 Rayleigh fading is the harshest environment, exposing weaknesses in higher-order modulation and ASK.
@@ -91,30 +100,36 @@ Phase-based modulations (BPSK/QPSK) outperform amplitude-based ASK in fading cha
 Higher-order schemes (16QAM) trade spectral efficiency for error resilience, performing poorly at low SNR.
 
 Conclusion
+
 For low-SNR and fading environments, BPSK/QPSK are most reliable.
 For high data rates in AWGN, 16QAM is efficient but fragile in fading.
 Binary ASK is unsuitable for fading channels due to amplitude sensitivity.
 OFDM provides robustness against ISI but still requires channel coding/diversity to combat fading.
 
 Results Discussion
+
 The graphs show how different modulation schemes and OFDM systems behave when the signal passes through different types of channels. The main takeaway is that the quality of the channel has a huge impact on how many errors occur.
 
 Channel Effects
+
 In a simple noisy channel (AWGN), performance is the best. Errors drop quickly as the signal strength improves.
 In Rayleigh fading, performance is the worst. Without a direct line-of-sight path, signals bounce around and interfere, causing many errors even at high signal strength.
 Rician fading sits in between. Because there is at least one strong direct path, errors are fewer compared to Rayleigh, but still worse than AWGN.
 
 Modulation Schemes
+
 BPSK and QPSK are the most reliable. They keep error rates low even when the channel is bad, which makes them good choices for tough environments.
 16QAM can carry more data, but it struggles in fading channels. At low signal strength, it produces many errors, showing the trade-off between speed and reliability.
 Binary ASK is very sensitive to fading because it depends on amplitude, which gets distorted easily. It works fine in AWGN but performs poorly in Rayleigh and Rician channels.
 
 OFDM Systems
+
 In AWGN, OFDM works extremely well, quickly reducing errors as signal strength increases.
 In Rayleigh fading, OFDM struggles. Errors don’t drop as fast, and there’s a kind of “error floor” where performance stops improving.
 In Rician fading, OFDM does much better. With a line-of-sight path, performance comes close to the AWGN case at higher signal strengths.
 
 Comparisons Across All Graphs
+
 AWGN always gives the best results.
 Rician fading is better than Rayleigh because of the line-of-sight path.
 Phase-based schemes (BPSK, QPSK) are more robust than amplitude-based ASK.
